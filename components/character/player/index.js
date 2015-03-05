@@ -22,10 +22,12 @@ var Player = function(playablePlayerName, ctx) {
     modelState : 0,
     direction : 'north',
     position : {
-      x: 38*16,
-      y: 20*16
+      x: 164*16,
+      y: 49*16
     }
   }
+
+  window.coords = this.state.position;
 };
 
 Player.prototype.tick = function() {

@@ -37,7 +37,7 @@ window.requestAnimFrame = (function(){
     },
 
     listenForUserInput : function() {
-      window.addEventListener('keyup', function(e) {
+      window.addEventListener('keydown', function(e) {
         e.preventDefault();
         e.stopPropagation();
 

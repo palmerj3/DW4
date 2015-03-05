@@ -36,9 +36,11 @@ gulp.task('javascript', function () {
 });
 
 gulp.task('watch', function () {
-    watch('**/*.js', batch(function () {
-        gulp.start('javascript');
-    }));
+    gulp.watch('**/*.js', ['javascript']);
+
+    // watch('**/*.js', batch(function () {
+    //     gulp.start('javascript');
+    // }));
 });
 
 gulp.task('default', ['connect', 'watch']);

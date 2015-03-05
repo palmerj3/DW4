@@ -22,12 +22,8 @@ var Player = function(playablePlayerName, ctx) {
     modelState : 0,
     direction : 'north',
     position : {
-      x: 7*16,
-      y: 5*16
-    },
-    coords : {
-      x: 7,
-      y: 5
+      x: 38*16,
+      y: 20*16
     }
   }
 };
@@ -84,6 +80,8 @@ Player.prototype.move = function(direction) {
   } else {
     this.state.direction = direction;
   }
+
+  console.log(this.state.position.x, this.state.position.y);
 };
 
 Player.prototype.getModelsForPlayer = function(playablePlayer) {

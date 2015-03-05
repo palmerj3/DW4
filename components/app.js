@@ -78,7 +78,6 @@ window.requestAnimFrame = (function(){
     }
   };
 
-
   game.initialize();
   game.run();
 

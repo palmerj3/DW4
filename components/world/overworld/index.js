@@ -11,7 +11,7 @@ Overworld.prototype.tick = function(playerPosition) {
   this.spriteMap = [];
 
   for (var x = playerPosition.x-(7*16), x2=0; x < playerPosition.x+(7*16); x+=16,x2+=16) {
-    for (var y = playerPosition.y-(5*16), y2=0; y < playerPosition.y+(5*16); y+=16,y2+=16) {
+    for (var y = playerPosition.y-(7*16), y2=0; y < playerPosition.y+(7*16); y+=16,y2+=16) {
 
       // Move map around the player
       this.spriteMap.push({

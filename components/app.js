@@ -38,20 +38,22 @@ window.requestAnimFrame = (function(){
 
     listenForUserInput : function() {
       window.addEventListener('keydown', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
 
         switch(e.keyCode) {
           case 38: // up
+            e.preventDefault();
             this.character.move('north');
             break;
           case 40: // down
+            e.preventDefault();
             this.character.move('south');
             break;
           case 39: // right
+            e.preventDefault();
             this.character.move('east');
             break;
           case 37: // left
+            e.preventDefault();
             this.character.move('west');
             break;
         }

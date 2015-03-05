@@ -1,0 +1,21 @@
+{
+  "name": "DW4",
+  "version": "0.0.0",
+  "description": "Remake of Dragon Warrior IV NES in HTML5",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jason Palmer",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "~3.8.11",
+    "browserify": "~9.0.3",
+    "vinyl-transform": "~1.0.0",
+    "gulp-uglify": "~1.1.0",
+    "gulp-sourcemaps": "~1.5.0",
+    "gulp-watch": "~4.1.1",
+    "gulp-batch": "~1.0.5",
+    "gulp-connect": "~2.2.0"
+  }
+}

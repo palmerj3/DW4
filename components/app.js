@@ -15,17 +15,18 @@ window.requestAnimFrame = (function(){
 
   var canvas = document.getElementById('game');
   var ctx = canvas.getContext('2d');
-  //ctx.scale(4,4);
-  ctx.save();
 
   canvas.tabIndex = 1;
-
   ctx.canvas.width  = window.innerWidth;
   ctx.canvas.height = window.innerHeight;
 
+  window.addEventListener('resize', function() {
+    ctx.canvas.width  = window.innerWidth;
+    ctx.canvas.height = window.innerHeight;
+  });
+
   var game = {
     initialize : function() {
-      // re-bind
       this.run = this.run.bind(this);
       this.tick = this.tick.bind(this);
       this.render = this.render.bind(this);
@@ -62,6 +63,7 @@ window.requestAnimFrame = (function(){
 
     run : function() {
       requestAnimFrame(this.run);
+
       this.tick();
       this.render();
     },
@@ -72,9 +74,6 @@ window.requestAnimFrame = (function(){
     },
 
     render : function() {
-      // Clear scene
-      ctx.clearRect ( 0 , 0 , canvas.width, canvas.height );
-
       this.overworld.render();
       this.character.render();
     }
@@ -82,6 +81,5 @@ window.requestAnimFrame = (function(){
 
   game.initialize();
   game.run();
-
 
 }());

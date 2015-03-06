@@ -44,4 +44,8 @@ Overworld.prototype.render = function() {
   }
 };
 
+Overworld.prototype.canMove = function(playerPosition, direction, characterType) {
+  return true;
+};
+
 module.exports = Overworld;

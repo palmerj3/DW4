@@ -13,6 +13,7 @@ var Player = function(playablePlayerName, ctx) {
 
   this.health = 20;
   this.name = playablePlayerName;
+  this.type = 'playable';   // Airship, Boat, etc
 
   this.models = this.getModelsForPlayer(playablePlayerName);
 
@@ -62,9 +63,9 @@ Player.prototype.render = function() {
   }
 };
 
-Player.prototype.move = function(direction) {
+Player.prototype.move = function(direction, blocked) {
   console.log('MOVE: ', direction);
-  if (this.state.direction === direction) {
+  if (this.state.direction === direction && !!blocked) {
     switch(direction) {
       case 'north':
         this.state.position.y -= this.state.currentModel.height;

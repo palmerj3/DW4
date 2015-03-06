@@ -39,25 +39,37 @@ window.requestAnimFrame = (function(){
 
     listenForUserInput : function() {
       window.addEventListener('keydown', function(e) {
+        var direction = '';
 
         switch(e.keyCode) {
           case 38: // up
             e.preventDefault();
-            this.character.move('north');
+            direction = 'north';
             break;
           case 40: // down
             e.preventDefault();
-            this.character.move('south');
+            direction = 'south';
             break;
           case 39: // right
             e.preventDefault();
-            this.character.move('east');
+            direction = 'east';
             break;
           case 37: // left
             e.preventDefault();
-            this.character.move('west');
+            direction = 'west';
             break;
         }
+
+        if (direction !== '') {
+          var canMove = this.overworld.canMove(
+            this.character.state.position,
+            direction,
+            this.character.type
+          );
+
+          this.character.move(direction, canMove);
+        }
+
       }.bind(this), false);
     },
 

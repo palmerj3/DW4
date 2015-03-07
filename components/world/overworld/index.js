@@ -7,7 +7,6 @@ var Overworld = function(ctx) {
   this.spriteFile = new Image();
   this.spriteFile.src = 'components/world/overworld/sprites.png';
   this.spriteMap = [];
-  this.tileScale = 4;
 };
 
 Overworld.prototype.tick = function(playerPosition) {    
@@ -30,7 +29,7 @@ Overworld.prototype.tick = function(playerPosition) {
   }
 };
 
-Overworld.prototype.render = function() { 
+Overworld.prototype.render = function(scale) { 
   for (var i = 0; i < this.spriteMap.length; i++) {
     var m = this.spriteMap[i];
 
@@ -40,10 +39,10 @@ Overworld.prototype.render = function() {
       m.y, 
       m.width, 
       m.height,
-      m['relative-x'] * this.tileScale,  // Scale x4
-      m['relative-y'] * this.tileScale,  // Scale x4
-      m.width * this.tileScale,          // Scale x4
-      m.height * this.tileScale          // Scale x4
+      m['relative-x'] * scale,  // Scale x4
+      m['relative-y'] * scale,  // Scale x4
+      m.width * scale,          // Scale x4
+      m.height * scale          // Scale x4
     );
   }
 };

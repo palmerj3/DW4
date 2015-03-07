@@ -17,13 +17,8 @@ window.requestAnimFrame = (function(){
   var ctx = canvas.getContext('2d');
 
   canvas.tabIndex = 1;
-  ctx.canvas.width  = window.innerWidth;
-  ctx.canvas.height = window.innerHeight;
-
-  window.addEventListener('resize', function() {
-    ctx.canvas.width  = window.innerWidth;
-    ctx.canvas.height = window.innerHeight;
-  });
+  ctx.canvas.width  = 572;
+  ctx.canvas.height = 572;
 
   var game = {
     initialize : function() {
@@ -31,10 +26,24 @@ window.requestAnimFrame = (function(){
       this.tick = this.tick.bind(this);
       this.render = this.render.bind(this);
 
+      this.scale = window.innerWidth / 15 / 16 / 2;
+
       this.overworld = new Overworld(ctx);
       this.character = new Player('Ragnar', ctx);
 
       this.listenForUserInput();
+      this.listenForWindowResize();
+    },
+
+    listenForWindowResize : function() {
+      window.addEventListener('resize', function() {
+        this.scale = window.innerWidth / 15 / 16 / 2;
+
+        ctx.clearRect ( 0 , 0 , ctx.canvas.width, ctx.canvas.height );
+
+        ctx.canvas.width = 15*16*this.scale;
+        ctx.canvas.height = 15*16*this.scale;
+      }.bind(this));
     },
 
     listenForUserInput : function() {
@@ -86,8 +95,10 @@ window.requestAnimFrame = (function(){
     },
 
     render : function() {
-      this.overworld.render();
-      this.character.render();
+      console.log(this.scale);
+
+      this.overworld.render(this.scale);
+      this.character.render(this.scale);
     }
   };
 

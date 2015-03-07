@@ -4,14 +4,8 @@ var Player = function(playablePlayerName, ctx) {
   this.ctx = ctx;
   this.spriteFile = new Image();
   this.spriteFile.src = 'components/character/player/sprites.png';
+  this.tileScale = 4;
 
-  this.stats = {
-    maxHealth : 20,
-    agility: 4,
-    strength: 5
-  };
-
-  this.health = 20;
   this.name = playablePlayerName;
   this.type = 'playable';   // Airship, Boat, etc
 
@@ -23,8 +17,8 @@ var Player = function(playablePlayerName, ctx) {
     modelState : 0,
     direction : 'north',
     position : {
-      x: 164*16,
-      y: 49*16
+      x: 2624,
+      y: 752
     }
   }
 
@@ -55,10 +49,10 @@ Player.prototype.render = function() {
       this.state.currentModel.y, 
       this.state.currentModel.width, 
       this.state.currentModel.height,
-      7*16*4,
-      5*16*4,
-      this.state.currentModel.width*4,
-      this.state.currentModel.height*4
+      7*16*this.tileScale, // Scale x4
+      7*16*this.tileScale, // Scale x4
+      this.state.currentModel.width*this.tileScale, // Scale x4
+      this.state.currentModel.height*this.tileScale // Scale x4
     );
   }
 };

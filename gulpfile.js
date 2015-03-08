@@ -8,7 +8,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var watch = require('gulp-watch');
 var batch = require('gulp-batch');
 var connect = require('gulp-connect');
-var deploy = require('gulp-gh-pages');
+var ghPages = require('gulp-gh-pages');
 
 var getBundleName = function () {
   var version = require('./package.json').version;
@@ -42,7 +42,9 @@ gulp.task('watch', function () {
 
 gulp.task('deploy', function () {
     return gulp.src(['./index.html', './dist/**/*'])
-        .pipe(deploy());
+        .pipe(ghPages({
+          force: true
+        }));
 });
 
 gulp.task('default', ['connect', 'watch']);

@@ -8,6 +8,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var watch = require('gulp-watch');
 var batch = require('gulp-batch');
 var connect = require('gulp-connect');
+var deploy = require('gulp-gh-pages');
 
 var getBundleName = function () {
   var version = require('./package.json').version;
@@ -37,10 +38,11 @@ gulp.task('javascript', function () {
 
 gulp.task('watch', function () {
     gulp.watch('**/*.js', ['javascript']);
+});
 
-    // watch('**/*.js', batch(function () {
-    //     gulp.start('javascript');
-    // }));
+gulp.task('deploy', function () {
+    return gulp.src(['./index.html', './dist/**/*'])
+        .pipe(deploy());
 });
 
 gulp.task('default', ['connect', 'watch']);

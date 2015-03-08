@@ -40,7 +40,7 @@ gulp.task('watch', function () {
     gulp.watch('**/*.js', ['javascript']);
 });
 
-gulp.task('deploy', function () {
+gulp.task('deploy', ['javascript'], function () {
     return gulp.src(['./index.html', './dist/**/*'])
         .pipe(ghPages({
           force: true

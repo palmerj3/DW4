@@ -17,8 +17,8 @@ var Player = function(playablePlayerName, ctx) {
     modelState : 0,
     direction : 'north',
     position : {
-      x: 1408,  //2624
-      y: 976    // 752
+      x: 2624,  //2624
+      y: 752    // 752
     }
   }
 

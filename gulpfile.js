@@ -47,4 +47,4 @@ gulp.task('deploy', ['javascript'], function () {
         }));
 });
 
-gulp.task('default', ['connect', 'watch']);
+gulp.task('default', ['javascript', 'connect', 'watch']);

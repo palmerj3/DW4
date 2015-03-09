@@ -27,9 +27,7 @@ window.requestAnimFrame = (function(){
       this.render = this.render.bind(this);
       this.calculateLayout = this.calculateLayout.bind(this);
 
-      this.scale = window.innerWidth / 15 / 16 / 2;
-      ctx.canvas.width = 15*16*this.scale;
-      ctx.canvas.height = 15*16*this.scale;
+      this.calculateLayout();
 
       this.overworld = new Overworld(ctx);
       this.character = new Player('Ragnar', ctx);

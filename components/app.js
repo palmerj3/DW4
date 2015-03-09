@@ -1,3 +1,5 @@
+var _ = require('underscore');
+
 var Player = require('./character/player');
 var Overworld = require('./world/overworld');
 
@@ -17,16 +19,17 @@ window.requestAnimFrame = (function(){
   var ctx = canvas.getContext('2d');
 
   canvas.tabIndex = 1;
-  ctx.canvas.width  = 572;
-  ctx.canvas.height = 572;
 
   var game = {
     initialize : function() {
       this.run = this.run.bind(this);
       this.tick = this.tick.bind(this);
       this.render = this.render.bind(this);
+      this.calculateLayout = this.calculateLayout.bind(this);
 
       this.scale = window.innerWidth / 15 / 16 / 2;
+      ctx.canvas.width = 15*16*this.scale;
+      ctx.canvas.height = 15*16*this.scale;
 
       this.overworld = new Overworld(ctx);
       this.character = new Player('Ragnar', ctx);
@@ -36,14 +39,18 @@ window.requestAnimFrame = (function(){
     },
 
     listenForWindowResize : function() {
-      window.addEventListener('resize', function() {
-        this.scale = window.innerWidth / 15 / 16 / 2;
+      // Limit amount of redraws during window resize
+      var lazyLayout = _.debounce(this.calculateLayout, 300);
+      window.addEventListener('resize', lazyLayout);
+    },
 
-        ctx.clearRect ( 0 , 0 , ctx.canvas.width, ctx.canvas.height );
+    calculateLayout : function() {
+      this.scale = window.innerWidth / 15 / 16 / 2;
 
-        ctx.canvas.width = 15*16*this.scale;
-        ctx.canvas.height = 15*16*this.scale;
-      }.bind(this));
+      ctx.clearRect ( 0 , 0 , ctx.canvas.width, ctx.canvas.height );
+
+      ctx.canvas.width = 15*16*this.scale;
+      ctx.canvas.height = 15*16*this.scale;
     },
 
     listenForUserInput : function() {
@@ -95,8 +102,6 @@ window.requestAnimFrame = (function(){
     },
 
     render : function() {
-      console.log(this.scale);
-
       this.overworld.render(this.scale);
       this.character.render(this.scale);
     }

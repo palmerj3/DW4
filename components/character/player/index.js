@@ -1,9 +1,11 @@
 'use strict';
 
+var playerSprites = require('./playerSprites.json');
+
 var Player = function(playablePlayerName, ctx) {
   this.ctx = ctx;
   this.spriteFile = new Image();
-  this.spriteFile.src = 'components/character/player/sprites.png';
+  this.spriteFile.src = 'components/character/player/characters-2.png';
   this.tileScale = 3;
 
   this.name = playablePlayerName;
@@ -82,62 +84,7 @@ Player.prototype.move = function(direction, blocked) {
 };
 
 Player.prototype.getModelsForPlayer = function(playablePlayer) {
-  switch(playablePlayer) {
-    case 'Ragnar':
-      return {
-        'north-0' : {
-          'x': 1,
-          'y': 74,
-          'width': 16,
-          'height': 16
-        },
-        'north-1' : {
-          'x': 26,
-          'y': 74,
-          'width': 16,
-          'height': 16
-        },
-        'south-0' : {
-          'x': 1,
-          'y': 50,
-          'width': 16,
-          'height': 16
-        },
-        'south-1' : {
-          'x': 26,
-          'y': 52,
-          'width': 16,
-          'height': 16
-        },
-        'east-0' : {
-          'x': 48,
-          'y': 52,
-          'width': 16,
-          'height': 16
-        },
-        'east-1' : {
-          'x': 70,
-          'y': 52,
-          'width': 16,
-          'height': 16
-        },
-        'west-0' : {
-          'x': 48,
-          'y': 74,
-          'width': 16,
-          'height': 16
-        },
-        'west-1' : {
-          'x': 70,
-          'y': 74,
-          'width': 16,
-          'height': 16
-        }
-      }
-      break;
-    default:
-      throw 'Invalid character';
-  }
+  return playerSprites[playablePlayer];
 };
 
 module.exports = Player;

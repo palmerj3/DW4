@@ -37,7 +37,7 @@ gulp.task('javascript', function () {
 });
 
 gulp.task('watch', function () {
-    gulp.watch('**/*.js', ['javascript']);
+    gulp.watch(['**/*.js', '**/*.json'], ['javascript']);
 });
 
 gulp.task('deploy', ['javascript'], function () {

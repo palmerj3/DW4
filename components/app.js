@@ -30,7 +30,7 @@ window.requestAnimFrame = (function(){
       this.calculateLayout();
 
       this.overworld = new Overworld(ctx);
-      this.character = new Player('Ragnar', ctx);
+      this.character = new Player('Hero', ctx);
 
       this.listenForUserInput();
       this.listenForWindowResize();

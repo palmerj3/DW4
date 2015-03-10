@@ -91,6 +91,8 @@ window.requestAnimFrame = (function(){
 
       playerSelect.addEventListener('change', function(e) {
         self.character = new Player(e.target.value);
+
+        canvas.tabIndex = 1;
       });
 
     },

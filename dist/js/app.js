@@ -214,7 +214,7 @@ window.requestAnimFrame = (function(){
 },{"./character/player":2,"./world/overworld":12,"underscore":14}],2:[function(require,module,exports){
 'use strict';
 
-var playerSprites = require('./players');
+var playersData = require('./players');
 
 var Player = function(playablePlayerName) {
   this.spriteFile = new Image();
@@ -224,7 +224,9 @@ var Player = function(playablePlayerName) {
   this.name = playablePlayerName;
   this.type = 'playable';   // Airship, Boat, etc
 
-  this.models = playerSprites[playablePlayerName];
+  this.playerData = playersData[this.name];
+
+  this.models = this.playerData.sprite;
 
   this.state = {
     lastTick : 0,
@@ -232,8 +234,8 @@ var Player = function(playablePlayerName) {
     modelState : 0,
     direction : 'north',
     position : {
-      x: 2624,  //2624
-      y: 752    // 752
+      x: this.playerData.homeLocation.x,
+      y: this.playerData.homeLocation.y
     }
   }
 
@@ -315,206 +317,230 @@ Player.prototype.move = function(direction, blocked) {
 module.exports = Player;
 },{"./players":7}],3:[function(require,module,exports){
 module.exports=module.exports = {
-  "north-0" : {
-    "x": 114,
-    "y": 380,
-    "width": 16,
-    "height": 16
+  "sprite" : {
+    "north-0" : {
+      "x": 114,
+      "y": 380,
+      "width": 16,
+      "height": 16
+    },
+    "north-1" : {
+      "x": 138,
+      "y": 380,
+      "width": 16,
+      "height": 16
+    },
+    "south-0" : {
+      "x": 112,
+      "y": 330,
+      "width": 16,
+      "height": 16
+    },
+    "south-1" : {
+      "x": 134,
+      "y": 330,
+      "width": 16,
+      "height": 16
+    },
+    "east-0" : {
+      "x": 114,
+      "y": 354,
+      "width": 16,
+      "height": 16
+    },
+    "east-1" : {
+      "x": 136,
+      "y": 354,
+      "width": 16,
+      "height": 16
+    },
+    "west-0" : {
+      "x": 114,
+      "y": 354,
+      "width": 16,
+      "height": 16
+    },
+    "west-1" : {
+      "x": 136,
+      "y": 354,
+      "width": 16,
+      "height": 16
+    }
   },
-  "north-1" : {
-    "x": 138,
-    "y": 380,
-    "width": 16,
-    "height": 16
-  },
-  "south-0" : {
-    "x": 112,
-    "y": 330,
-    "width": 16,
-    "height": 16
-  },
-  "south-1" : {
-    "x": 134,
-    "y": 330,
-    "width": 16,
-    "height": 16
-  },
-  "east-0" : {
-    "x": 114,
-    "y": 354,
-    "width": 16,
-    "height": 16
-  },
-  "east-1" : {
-    "x": 136,
-    "y": 354,
-    "width": 16,
-    "height": 16
-  },
-  "west-0" : {
-    "x": 114,
-    "y": 354,
-    "width": 16,
-    "height": 16
-  },
-  "west-1" : {
-    "x": 136,
-    "y": 354,
-    "width": 16,
-    "height": 16
+  "homeLocation" : {
+    "x" : 624,
+    "y" : 1184
   }
 }
 },{}],4:[function(require,module,exports){
 module.exports=module.exports = {
-  "north-0" : {
-    "x": 160,
-    "y": 380,
-    "width": 16,
-    "height": 16
+  "sprite" : {
+    "north-0" : {
+      "x": 160,
+      "y": 380,
+      "width": 16,
+      "height": 16
+    },
+    "north-1" : {
+      "x": 186,
+      "y": 380,
+      "width": 16,
+      "height": 16
+    },
+    "south-0" : {
+      "x": 160,
+      "y": 356,
+      "width": 16,
+      "height": 16
+    },
+    "south-1" : {
+      "x": 186,
+      "y": 356,
+      "width": 16,
+      "height": 16
+    },
+    "east-0" : {
+      "x": 160,
+      "y": 406,
+      "width": 16,
+      "height": 16
+    },
+    "east-1" : {
+      "x": 186,
+      "y": 406,
+      "width": 16,
+      "height": 16
+    },
+    "west-0" : {
+      "x": 160,
+      "y": 330,
+      "width": 16,
+      "height": 16
+    },
+    "west-1" : {
+      "x": 186,
+      "y": 330,
+      "width": 16,
+      "height": 16
+    }
   },
-  "north-1" : {
-    "x": 186,
-    "y": 380,
-    "width": 16,
-    "height": 16
-  },
-  "south-0" : {
-    "x": 160,
-    "y": 356,
-    "width": 16,
-    "height": 16
-  },
-  "south-1" : {
-    "x": 186,
-    "y": 356,
-    "width": 16,
-    "height": 16
-  },
-  "east-0" : {
-    "x": 160,
-    "y": 406,
-    "width": 16,
-    "height": 16
-  },
-  "east-1" : {
-    "x": 186,
-    "y": 406,
-    "width": 16,
-    "height": 16
-  },
-  "west-0" : {
-    "x": 160,
-    "y": 330,
-    "width": 16,
-    "height": 16
-  },
-  "west-1" : {
-    "x": 186,
-    "y": 330,
-    "width": 16,
-    "height": 16
+  "homeLocation" : {
+    "x" : 624,
+    "y" : 1184
   }
 }
 },{}],5:[function(require,module,exports){
 module.exports=module.exports = {
-  "north-0" : {
-    "x": 208,
-    "y": 404,
-    "width": 16,
-    "height": 16
+  "sprite" : {
+    "north-0" : {
+      "x": 208,
+      "y": 404,
+      "width": 16,
+      "height": 16
+    },
+    "north-1" : {
+      "x": 230,
+      "y": 404,
+      "width": 16,
+      "height": 16
+    },
+    "south-0" : {
+      "x": 208,
+      "y": 330,
+      "width": 16,
+      "height": 16
+    },
+    "south-1" : {
+      "x": 230,
+      "y": 329,
+      "width": 16,
+      "height": 16
+    },
+    "east-0" : {
+      "x": 208,
+      "y": 380,
+      "width": 16,
+      "height": 16
+    },
+    "east-1" : {
+      "x": 230,
+      "y": 380,
+      "width": 16,
+      "height": 16
+    },
+    "west-0" : {
+      "x": 208,
+      "y": 354,
+      "width": 16,
+      "height": 16
+    },
+    "west-1" : {
+      "x": 230,
+      "y": 354,
+      "width": 16,
+      "height": 16
+    }
   },
-  "north-1" : {
-    "x": 230,
-    "y": 404,
-    "width": 16,
-    "height": 16
-  },
-  "south-0" : {
-    "x": 208,
-    "y": 330,
-    "width": 16,
-    "height": 16
-  },
-  "south-1" : {
-    "x": 230,
-    "y": 329,
-    "width": 16,
-    "height": 16
-  },
-  "east-0" : {
-    "x": 208,
-    "y": 380,
-    "width": 16,
-    "height": 16
-  },
-  "east-1" : {
-    "x": 230,
-    "y": 380,
-    "width": 16,
-    "height": 16
-  },
-  "west-0" : {
-    "x": 208,
-    "y": 354,
-    "width": 16,
-    "height": 16
-  },
-  "west-1" : {
-    "x": 230,
-    "y": 354,
-    "width": 16,
-    "height": 16
+  "homeLocation" : {
+    "x" : 624,
+    "y" : 1184
   }
 }
 },{}],6:[function(require,module,exports){
 module.exports=module.exports = {
-  "north-0" : {
-    "x": 448,
-    "y": 476,
-    "width": 16,
-    "height": 16
+  "sprite" : {
+    "north-0" : {
+      "x": 448,
+      "y": 476,
+      "width": 16,
+      "height": 16
+    },
+    "north-1" : {
+      "x": 470,
+      "y": 476,
+      "width": 16,
+      "height": 16
+    },
+    "south-0" : {
+      "x": 448,
+      "y": 410,
+      "width": 16,
+      "height": 16
+    },
+    "south-1" : {
+      "x": 470,
+      "y": 410,
+      "width": 16,
+      "height": 16
+    },
+    "east-0" : {
+      "x": 448,
+      "y": 452,
+      "width": 16,
+      "height": 16
+    },
+    "east-1" : {
+      "x": 470,
+      "y": 452,
+      "width": 16,
+      "height": 16
+    },
+    "west-0" : {
+      "x": 448,
+      "y": 428,
+      "width": 16,
+      "height": 16
+    },
+    "west-1" : {
+      "x": 470,
+      "y": 428,
+      "width": 16,
+      "height": 16
+    }
   },
-  "north-1" : {
-    "x": 470,
-    "y": 476,
-    "width": 16,
-    "height": 16
-  },
-  "south-0" : {
-    "x": 448,
-    "y": 410,
-    "width": 16,
-    "height": 16
-  },
-  "south-1" : {
-    "x": 470,
-    "y": 410,
-    "width": 16,
-    "height": 16
-  },
-  "east-0" : {
-    "x": 448,
-    "y": 452,
-    "width": 16,
-    "height": 16
-  },
-  "east-1" : {
-    "x": 470,
-    "y": 452,
-    "width": 16,
-    "height": 16
-  },
-  "west-0" : {
-    "x": 448,
-    "y": 428,
-    "width": 16,
-    "height": 16
-  },
-  "west-1" : {
-    "x": 470,
-    "y": 428,
-    "width": 16,
-    "height": 16
+  "homeLocation" : {
+    "x" : 2320,
+    "y" : 800
   }
 }
 },{}],7:[function(require,module,exports){
@@ -530,206 +556,230 @@ module.exports = {
 }
 },{"./alena.json":3,"./brey.json":4,"./cristo.json":5,"./hero.json":6,"./mara.json":8,"./nara.json":9,"./ragnar.json":10,"./taloon.json":11}],8:[function(require,module,exports){
 module.exports=module.exports = {
-  "north-0" : {
-    "x": 386,
-    "y": 376,
-    "width": 16,
-    "height": 16
+  "sprite" : {
+    "north-0" : {
+      "x": 386,
+      "y": 376,
+      "width": 16,
+      "height": 16
+    },
+    "north-1" : {
+      "x": 406,
+      "y": 376,
+      "width": 16,
+      "height": 16
+    },
+    "south-0" : {
+      "x": 388,
+      "y": 328,
+      "width": 16,
+      "height": 16
+    },
+    "south-1" : {
+      "x": 410,
+      "y": 328,
+      "width": 16,
+      "height": 16
+    },
+    "east-0" : {
+      "x": 388,
+      "y": 352,
+      "width": 16,
+      "height": 16
+    },
+    "east-1" : {
+      "x": 408,
+      "y": 352,
+      "width": 16,
+      "height": 16
+    },
+    "west-0" : {
+      "x": 388,
+      "y": 352,
+      "width": 16,
+      "height": 16
+    },
+    "west-1" : {
+      "x": 408,
+      "y": 352,
+      "width": 16,
+      "height": 16
+    }
   },
-  "north-1" : {
-    "x": 406,
-    "y": 376,
-    "width": 16,
-    "height": 16
-  },
-  "south-0" : {
-    "x": 388,
-    "y": 328,
-    "width": 16,
-    "height": 16
-  },
-  "south-1" : {
-    "x": 410,
-    "y": 328,
-    "width": 16,
-    "height": 16
-  },
-  "east-0" : {
-    "x": 388,
-    "y": 352,
-    "width": 16,
-    "height": 16
-  },
-  "east-1" : {
-    "x": 408,
-    "y": 352,
-    "width": 16,
-    "height": 16
-  },
-  "west-0" : {
-    "x": 388,
-    "y": 352,
-    "width": 16,
-    "height": 16
-  },
-  "west-1" : {
-    "x": 408,
-    "y": 352,
-    "width": 16,
-    "height": 16
+  "homeLocation" : {
+    "x" : 912,
+    "y" : 3696
   }
 }
 },{}],9:[function(require,module,exports){
 module.exports=module.exports = {
-  "north-0" : {
-    "x": 348,
-    "y": 400,
-    "width": 16,
-    "height": 16
+  "sprite" : {
+    "north-0" : {
+      "x": 348,
+      "y": 400,
+      "width": 16,
+      "height": 16
+    },
+    "north-1" : {
+      "x": 368,
+      "y": 400,
+      "width": 16,
+      "height": 16
+    },
+    "south-0" : {
+      "x": 350,
+      "y": 328,
+      "width": 16,
+      "height": 16
+    },
+    "south-1" : {
+      "x": 368,
+      "y": 328,
+      "width": 16,
+      "height": 16
+    },
+    "east-0" : {
+      "x": 350,
+      "y": 354,
+      "width": 16,
+      "height": 16
+    },
+    "east-1" : {
+      "x": 368,
+      "y": 352,
+      "width": 16,
+      "height": 16
+    },
+    "west-0" : {
+      "x": 350,
+      "y": 378,
+      "width": 16,
+      "height": 16
+    },
+    "west-1" : {
+      "x": 368,
+      "y": 378,
+      "width": 16,
+      "height": 16
+    }
   },
-  "north-1" : {
-    "x": 368,
-    "y": 400,
-    "width": 16,
-    "height": 16
-  },
-  "south-0" : {
-    "x": 350,
-    "y": 328,
-    "width": 16,
-    "height": 16
-  },
-  "south-1" : {
-    "x": 368,
-    "y": 328,
-    "width": 16,
-    "height": 16
-  },
-  "east-0" : {
-    "x": 350,
-    "y": 354,
-    "width": 16,
-    "height": 16
-  },
-  "east-1" : {
-    "x": 368,
-    "y": 352,
-    "width": 16,
-    "height": 16
-  },
-  "west-0" : {
-    "x": 350,
-    "y": 378,
-    "width": 16,
-    "height": 16
-  },
-  "west-1" : {
-    "x": 368,
-    "y": 378,
-    "width": 16,
-    "height": 16
+  "homeLocation" : {
+    "x" : 912,
+    "y" : 3696
   }
 }
 },{}],10:[function(require,module,exports){
 module.exports=module.exports = {
-  "north-0" : {
-    "x": 5,
-    "y": 77,
-    "width": 16,
-    "height": 16
+  "sprite" : {
+    "north-0" : {
+      "x": 5,
+      "y": 77,
+      "width": 16,
+      "height": 16
+    },
+    "north-1" : {
+      "x": 29,
+      "y": 77,
+      "width": 16,
+      "height": 16
+    },
+    "south-0" : {
+      "x": 5,
+      "y": 55,
+      "width": 16,
+      "height": 16
+    },
+    "south-1" : {
+      "x": 29,
+      "y": 55,
+      "width": 16,
+      "height": 16
+    },
+    "east-0" : {
+      "x": 54,
+      "y": 55,
+      "width": 16,
+      "height": 16
+    },
+    "east-1" : {
+      "x": 74,
+      "y": 55,
+      "width": 16,
+      "height": 16
+    },
+    "west-0" : {
+      "x": 54,
+      "y": 77,
+      "width": 16,
+      "height": 16
+    },
+    "west-1" : {
+      "x": 74,
+      "y": 77,
+      "width": 16,
+      "height": 16
+    }
   },
-  "north-1" : {
-    "x": 29,
-    "y": 77,
-    "width": 16,
-    "height": 16
-  },
-  "south-0" : {
-    "x": 5,
-    "y": 55,
-    "width": 16,
-    "height": 16
-  },
-  "south-1" : {
-    "x": 29,
-    "y": 55,
-    "width": 16,
-    "height": 16
-  },
-  "east-0" : {
-    "x": 54,
-    "y": 55,
-    "width": 16,
-    "height": 16
-  },
-  "east-1" : {
-    "x": 74,
-    "y": 55,
-    "width": 16,
-    "height": 16
-  },
-  "west-0" : {
-    "x": 54,
-    "y": 77,
-    "width": 16,
-    "height": 16
-  },
-  "west-1" : {
-    "x": 74,
-    "y": 77,
-    "width": 16,
-    "height": 16
+  "homeLocation" : {
+    "x": 2624,
+    "y" : 752
   }
 }
 },{}],11:[function(require,module,exports){
 module.exports=module.exports = {
-  "north-0" : {
-    "x": 298,
-    "y": 480,
-    "width": 16,
-    "height": 16
+  "sprite" : {
+    "north-0" : {
+      "x": 298,
+      "y": 480,
+      "width": 16,
+      "height": 16
+    },
+    "north-1" : {
+      "x": 324,
+      "y": 480,
+      "width": 16,
+      "height": 16
+    },
+    "south-0" : {
+      "x": 300,
+      "y": 428,
+      "width": 16,
+      "height": 16
+    },
+    "south-1" : {
+      "x": 322,
+      "y": 428,
+      "width": 16,
+      "height": 16
+    },
+    "east-0" : {
+      "x": 300,
+      "y": 454,
+      "width": 16,
+      "height": 16
+    },
+    "east-1" : {
+      "x": 322,
+      "y": 454,
+      "width": 16,
+      "height": 16
+    },
+    "west-0" : {
+      "x": 300,
+      "y": 454,
+      "width": 16,
+      "height": 16
+    },
+    "west-1" : {
+      "x": 322,
+      "y": 454,
+      "width": 16,
+      "height": 16
+    }
   },
-  "north-1" : {
-    "x": 324,
-    "y": 480,
-    "width": 16,
-    "height": 16
-  },
-  "south-0" : {
-    "x": 300,
-    "y": 428,
-    "width": 16,
-    "height": 16
-  },
-  "south-1" : {
-    "x": 322,
-    "y": 428,
-    "width": 16,
-    "height": 16
-  },
-  "east-0" : {
-    "x": 300,
-    "y": 454,
-    "width": 16,
-    "height": 16
-  },
-  "east-1" : {
-    "x": 322,
-    "y": 454,
-    "width": 16,
-    "height": 16
-  },
-  "west-0" : {
-    "x": 300,
-    "y": 454,
-    "width": 16,
-    "height": 16
-  },
-  "west-1" : {
-    "x": 322,
-    "y": 454,
-    "width": 16,
-    "height": 16
+  "homeLocation" : {
+    "x" : 1664,
+    "y" : 592
   }
 }
 },{}],12:[function(require,module,exports){

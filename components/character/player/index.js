@@ -1,6 +1,6 @@
 'use strict';
 
-var playerSprites = require('./players');
+var playersData = require('./players');
 
 var Player = function(playablePlayerName) {
   this.spriteFile = new Image();
@@ -10,7 +10,9 @@ var Player = function(playablePlayerName) {
   this.name = playablePlayerName;
   this.type = 'playable';   // Airship, Boat, etc
 
-  this.models = playerSprites[playablePlayerName];
+  this.playerData = playersData[this.name];
+
+  this.models = this.playerData.sprite;
 
   this.state = {
     lastTick : 0,
@@ -18,8 +20,8 @@ var Player = function(playablePlayerName) {
     modelState : 0,
     direction : 'north',
     position : {
-      x: 2624,  //2624
-      y: 752    // 752
+      x: this.playerData.homeLocation.x,
+      y: this.playerData.homeLocation.y
     }
   }
 

@@ -1,17 +1,16 @@
 'use strict';
 
-var playerSprites = require('./playerSprites.json');
+var playerSprites = require('./players');
 
-var Player = function(playablePlayerName, ctx) {
-  this.ctx = ctx;
+var Player = function(playablePlayerName) {
   this.spriteFile = new Image();
-  this.spriteFile.src = 'components/character/player/characters-2.png';
+  this.spriteFile.src = 'components/character/player/sprites.png';
   this.tileScale = 3;
 
   this.name = playablePlayerName;
   this.type = 'playable';   // Airship, Boat, etc
 
-  this.models = this.getModelsForPlayer(playablePlayerName);
+  this.models = playerSprites[playablePlayerName];
 
   this.state = {
     lastTick : 0,
@@ -43,9 +42,9 @@ Player.prototype.tick = function() {
   }
 };
 
-Player.prototype.render = function(scale) {
+Player.prototype.render = function(ctx, scale) {
   if (this.state.currentModel !== null) {
-    this.ctx.drawImage(
+    ctx.drawImage(
       this.spriteFile, 
       this.state.currentModel.x, 
       this.state.currentModel.y, 
@@ -81,10 +80,6 @@ Player.prototype.move = function(direction, blocked) {
   }
 
   console.log(this.state.position.x, this.state.position.y);
-};
-
-Player.prototype.getModelsForPlayer = function(playablePlayer) {
-  return playerSprites[playablePlayer];
 };
 
 module.exports = Player;

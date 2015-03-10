@@ -2,8 +2,7 @@
 
 var mountainTiles = require('./tiles.json');
 
-var Overworld = function(ctx) {
-  this.ctx = ctx;
+var Overworld = function() {
   this.spriteFile = new Image();
   this.spriteFile.src = 'components/world/overworld/sprites.png';
   this.spriteMap = [];
@@ -29,11 +28,11 @@ Overworld.prototype.tick = function(playerPosition) {
   }
 };
 
-Overworld.prototype.render = function(scale) { 
+Overworld.prototype.render = function(ctx, scale) { 
   for (var i = 0; i < this.spriteMap.length; i++) {
     var m = this.spriteMap[i];
 
-    this.ctx.drawImage(
+    ctx.drawImage(
       this.spriteFile, 
       m.x, 
       m.y, 

@@ -29,8 +29,8 @@ window.requestAnimFrame = (function(){
 
       this.calculateLayout();
 
-      this.overworld = new Overworld(ctx);
-      this.character = new Player('Hero', ctx);
+      this.overworld = new Overworld();
+      this.character = new Player('Ragnar');
 
       this.listenForUserInput();
       this.listenForWindowResize();
@@ -100,8 +100,8 @@ window.requestAnimFrame = (function(){
     },
 
     render : function() {
-      this.overworld.render(this.scale);
-      this.character.render(this.scale);
+      this.overworld.render(ctx, this.scale);
+      this.character.render(ctx, this.scale);
     }
   };
 

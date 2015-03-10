@@ -23,7 +23,23 @@ var Player = function(playablePlayerName) {
     }
   }
 
-  window.coords = this.state.position;
+  this.playPlayerSound();
+};
+
+Player.prototype.playPlayerSound = function() {
+  var existingAudioTracks = document.getElementsByClassName('player-track');
+
+  for (var i=0; i<existingAudioTracks.length; i++) {
+    existingAudioTracks[i].parentNode.removeChild(existingAudioTracks[i]);
+  }
+
+  var audioTrack = document.createElement('audio');
+  audioTrack.classList.add('player-track');
+  audioTrack.setAttribute('autoplay', true);
+  audioTrack.setAttribute('loop', true);
+  audioTrack.src = 'components/character/player/sounds/' + this.name + '.mp3';
+
+  document.body.appendChild(audioTrack);
 };
 
 Player.prototype.tick = function() {

@@ -22,6 +22,7 @@ html,body {
   top: 0;
   left: 0;
   z-index: 2;
+  color: #fff;
 }
 
 legend {
@@ -33,16 +34,21 @@ legend {
 
 <fieldset id="settings">
   <legend>Settings</legend>
+    <h3>Select Player</h3>
     <select id="playerSelection">
-      <option value="Hero" selected>Hero</option>
-      <option value="Ragnar">Ragnar</option>
+      <option value="Ragnar" selected>Ragnar</option>
       <option value="Alena">Alena</option>
       <option value="Brey">Brey</option>
       <option value="Cristo">Cristo</option>
       <option value="Taloon">Taloon</option>
       <option value="Nara">Nara</option>
       <option value="Mara">Mara</option>
+      <option value="Hero">Hero</option>
     </select>
+
+    <h3>Sound</h3>
+    <input type="checkbox" id="mute_sound" /><label for="mute_sound">Mute Sound</label>
+
 </fieldset>
 <canvas id="game"></canvas>
 <script src="dist/js/app.js"></script>

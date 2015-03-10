@@ -30,13 +30,15 @@ window.requestAnimFrame = (function(){
       this.calculateLayout();
 
       this.overworld = new Overworld();
-      this.character = new Player('Hero');
+      this.character = new Player('Ragnar');
 
       this.listenForUserInput();
       this.listenForWindowResize();
 
       // TODO: Remove (testing)
       this.listenForPlayerChange();
+      this.listenForMuteSound();
+
       this.listenForMouseMovement();
     },
 
@@ -82,6 +84,20 @@ window.requestAnimFrame = (function(){
 
         self.showSettings();
         timeout = setTimeout(self.hideSettings, 3000);
+      });
+    },
+
+    listenForMuteSound : function() {
+      var muteSoundNode = document.getElementById('mute_sound');
+      var self = this;
+
+      muteSoundNode.addEventListener('click', function(e) {
+        var mute = e.target.checked;
+        var audioTags = document.querySelectorAll('audio');
+        
+        for (var i = 0; i < audioTags.length; i++) {
+          audioTags[i].muted = mute;
+        }
       });
     },
 
@@ -131,6 +147,45 @@ window.requestAnimFrame = (function(){
         }
 
       }.bind(this), false);
+
+      window.addEventListener('touchstart', function(e) {
+        var touches = e.changedTouches,
+            direction = '';
+
+        for (var i=0; i<touches.length; i++) {
+          var t = touches[i];
+
+          if (t.pageX < (canvas.width/2)) {
+            direction = 'west';
+            continue;
+          }
+
+          if (t.pageX > (canvas.width/2)) {
+            direction = 'east';
+            continue;
+          }
+
+          if (t.pageY < (canvas.height/2)) {
+            direction = 'south';
+            continue;
+          }
+
+          if (t.pageY > (canvas.height/2)) {
+            direction = 'north';
+            continue;
+          }
+        }
+
+        if (direction !== '') {
+          var canMove = this.overworld.canMove(
+            this.character.state.position,
+            direction,
+            this.character.type
+          );
+
+          this.character.move(direction, canMove);
+        }
+      }.bind(this));
     },
 
     run : function() {

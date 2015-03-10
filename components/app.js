@@ -30,16 +30,38 @@ window.requestAnimFrame = (function(){
       this.calculateLayout();
 
       this.overworld = new Overworld();
-      this.character = new Player('Mara');
+      this.character = new Player('Hero');
 
       this.listenForUserInput();
       this.listenForWindowResize();
+
+      // TODO: Remove (testing)
+      this.listenForPlayerChange();
+      this.listenForMouseMovement();
     },
 
     listenForWindowResize : function() {
       // Limit amount of redraws during window resize
       var lazyLayout = _.debounce(this.calculateLayout, 300);
       window.addEventListener('resize', lazyLayout);
+    },
+
+    toggleSettings : function() {
+      var settingsContainer = document.getElementById('settings');
+
+      if (settingsContainer.style.display === 'none') {
+        settingsContainer.style.display = 'block';
+      } else {
+        settingsContainer.style.display = 'none';
+      }
+    },
+
+    showSettings : function() {
+      document.getElementById('settings').style.display = 'block';
+    },
+
+    hideSettings : function() {
+      document.getElementById('settings').style.display = 'none';
     },
 
     calculateLayout : function() {
@@ -49,6 +71,28 @@ window.requestAnimFrame = (function(){
 
       ctx.canvas.width = 15*16*this.scale;
       ctx.canvas.height = 15*16*this.scale;
+    },
+
+    listenForMouseMovement : function() {
+      var self = this,
+          timeout = null;
+
+      window.addEventListener('mousemove', function(e) {
+        clearTimeout(timeout);
+
+        self.showSettings();
+        timeout = setTimeout(self.hideSettings, 3000);
+      });
+    },
+
+    listenForPlayerChange : function() {
+      var playerSelect = document.getElementById('playerSelection');
+      var self = this;
+
+      playerSelect.addEventListener('change', function(e) {
+        self.character = new Player(e.target.value);
+      });
+
     },
 
     listenForUserInput : function() {

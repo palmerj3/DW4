@@ -14,9 +14,36 @@ html,body {
   margin-left: auto;
   margin-right: auto;
 }
+
+#settings {
+  width: 200px;
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+
+legend {
+  color: #fff;
+}
 </style>
 </head>
 <body>
+
+<fieldset id="settings">
+  <legend>Settings</legend>
+    <select id="playerSelection">
+      <option value="Hero" selected>Hero</option>
+      <option value="Ragnar">Ragnar</option>
+      <option value="Alena">Alena</option>
+      <option value="Brey">Brey</option>
+      <option value="Cristo">Cristo</option>
+      <option value="Taloon">Taloon</option>
+      <option value="Nara">Nara</option>
+      <option value="Mara">Mara</option>
+    </select>
+</fieldset>
 <canvas id="game"></canvas>
 <script src="dist/js/app.js"></script>
 </body>

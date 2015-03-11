@@ -790,45 +790,34 @@ var mountainTiles = require('./tiles.json');
 var Overworld = function() {
   this.spriteFile = new Image();
   this.spriteFile.src = 'components/world/overworld/sprites.png';
-  this.spriteMap = [];
+  //this.spriteMap = [];
+
+  this.drawableArea = {
+    x: 0,
+    y: 0
+  };
+
+  this.blockSize = 16;
+  this.numBlocksPerAxis = 15;
 };
 
 Overworld.prototype.tick = function(playerPosition) {    
-  var step = 16;
-  this.spriteMap = [];
-
-  for (var x = playerPosition.x-(7*step), x2=0; x <= playerPosition.x+(7*step); x+=step,x2+=step) {
-    for (var y = playerPosition.y-(7*step), y2=0; y <= playerPosition.y+(7*step); y+=16,y2+=step) {
-
-      // Move map around the player
-      this.spriteMap.push({
-        'x': x,
-        'y': y,
-        'width': 16,
-        'height': 16,
-        'relative-x': x2,
-        'relative-y': y2
-      });
-    }
-  }
+  this.drawableArea.x = playerPosition.x - 7*this.blockSize;
+  this.drawableArea.y = playerPosition.y - 7*this.blockSize;
 };
 
 Overworld.prototype.render = function(ctx, scale) { 
-  for (var i = 0; i < this.spriteMap.length; i++) {
-    var m = this.spriteMap[i];
-
-    ctx.drawImage(
-      this.spriteFile, 
-      m.x, 
-      m.y, 
-      m.width, 
-      m.height,
-      m['relative-x'] * scale,  // Scale x4
-      m['relative-y'] * scale,  // Scale x4
-      m.width * scale,          // Scale x4
-      m.height * scale          // Scale x4
-    );
-  }
+  ctx.drawImage(
+    this.spriteFile,
+    this.drawableArea.x,
+    this.drawableArea.y,
+    this.numBlocksPerAxis*this.blockSize,
+    this.numBlocksPerAxis*this.blockSize,
+    0,
+    0,
+    this.numBlocksPerAxis*this.blockSize*scale,
+    this.numBlocksPerAxis*this.blockSize*scale
+  );  
 };
 
 Overworld.prototype.canMove = function(playerPosition, direction, characterType) {
@@ -836,16 +825,16 @@ Overworld.prototype.canMove = function(playerPosition, direction, characterType)
 
   switch(direction) {
     case 'north':
-      positionKey = (playerPosition.y-16) + '-' + playerPosition.x;
+      positionKey = (playerPosition.y-this.blockSize) + '-' + playerPosition.x;
       break;
     case 'south':
-      positionKey = (playerPosition.y+16) + '-' + playerPosition.x;
+      positionKey = (playerPosition.y+this.blockSize) + '-' + playerPosition.x;
       break;
     case 'east':
-      positionKey = playerPosition.y + '-' + (playerPosition.x+16);
+      positionKey = playerPosition.y + '-' + (playerPosition.x+this.blockSize);
       break;
     case 'west':
-      positionKey = playerPosition.y + '-' + (playerPosition.x-16);
+      positionKey = playerPosition.y + '-' + (playerPosition.x-this.blockSize);
       break;
   }
 

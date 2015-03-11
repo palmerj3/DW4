@@ -114,7 +114,9 @@ window.requestAnimFrame = (function(){
     },
 
     listenForUserInput : function() {
-      window.addEventListener('keydown', function(e) {
+      var self = this;
+
+      var lazyKeydown = _.throttle(function(e) {
         var direction = '';
 
         switch(e.keyCode) {
@@ -137,55 +139,17 @@ window.requestAnimFrame = (function(){
         }
 
         if (direction !== '') {
-          var canMove = this.overworld.canMove(
-            this.character.state.position,
+          var canMove = self.overworld.canMove(
+            self.character.state.position,
             direction,
-            this.character.type
+            self.character.type
           );
 
-          this.character.move(direction, canMove);
+          self.character.move(direction, canMove);
         }
+      }, 190);
 
-      }.bind(this), false);
-
-      window.addEventListener('touchstart', function(e) {
-        var touches = e.changedTouches,
-            direction = '';
-
-        for (var i=0; i<touches.length; i++) {
-          var t = touches[i];
-
-          if (t.pageX < (canvas.width/2)) {
-            direction = 'west';
-            continue;
-          }
-
-          if (t.pageX > (canvas.width/2)) {
-            direction = 'east';
-            continue;
-          }
-
-          if (t.pageY < (canvas.height/2)) {
-            direction = 'south';
-            continue;
-          }
-
-          if (t.pageY > (canvas.height/2)) {
-            direction = 'north';
-            continue;
-          }
-        }
-
-        if (direction !== '') {
-          var canMove = this.overworld.canMove(
-            this.character.state.position,
-            direction,
-            this.character.type
-          );
-
-          this.character.move(direction, canMove);
-        }
-      }.bind(this));
+      window.addEventListener('keydown', lazyKeydown, false);
     },
 
     run : function() {

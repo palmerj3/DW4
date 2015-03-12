@@ -25,7 +25,7 @@ module.exports = {
       "height": 16
     },
     "east-0" : {
-      "x": 54,
+      "x": 53,
       "y": 55,
       "width": 16,
       "height": 16

@@ -147,7 +147,7 @@ window.requestAnimFrame = (function(){
 
           self.character.move(direction, canMove);
         }
-      }, 190);
+      }, 350);
 
       window.addEventListener('keydown', lazyKeydown, false);
     },

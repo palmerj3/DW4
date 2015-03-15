@@ -73,6 +73,9 @@ window.requestAnimFrame = (function(){
 
       ctx.canvas.width = 15*16*this.scale;
       ctx.canvas.height = 15*16*this.scale;
+
+      ctx.imageSmoothingEnabled = false;
+      ctx.mozImageSmoothingEnabled = false;
     },
 
     listenForMouseMovement : function() {

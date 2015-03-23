@@ -119,7 +119,42 @@ window.requestAnimFrame = (function(){
     listenForUserInput : function() {
       var self = this;
 
-      var lazyKeydown = _.throttle(function(e) {
+      // var lazyKeydown = _.throttle(function(e) {
+      //   var direction = '';
+
+      //   switch(e.keyCode) {
+      //     case 38: // up
+      //       e.preventDefault();
+      //       direction = 'north';
+      //       break;
+      //     case 40: // down
+      //       e.preventDefault();
+      //       direction = 'south';
+      //       break;
+      //     case 39: // right
+      //       e.preventDefault();
+      //       direction = 'east';
+      //       break;
+      //     case 37: // left
+      //       e.preventDefault();
+      //       direction = 'west';
+      //       break;
+      //   }
+
+      //   if (direction !== '') {          
+      //     var canMove = self.overworld.canMove(
+      //       self.character.state.position,
+      //       direction,
+      //       self.character.type
+      //     );
+
+      //     self.character.move(direction, canMove);
+      //   }
+      // }, 350);
+
+      // window.addEventListener('keydown', lazyKeydown, false);
+      
+      window.addEventListener('keydown', function (e) {
         var direction = '';
 
         switch(e.keyCode) {
@@ -141,7 +176,7 @@ window.requestAnimFrame = (function(){
             break;
         }
 
-        if (direction !== '') {
+        if (direction !== '' && self.character.state.movementInProgress === false) {          
           var canMove = self.overworld.canMove(
             self.character.state.position,
             direction,
@@ -150,9 +185,7 @@ window.requestAnimFrame = (function(){
 
           self.character.move(direction, canMove);
         }
-      }, 350);
-
-      window.addEventListener('keydown', lazyKeydown, false);
+      }, false);
     },
 
     run : function() {

@@ -9,6 +9,7 @@ var Player = function(playablePlayerName) {
 
   this.name = playablePlayerName;
   this.type = 'playable';   // Airship, Boat, etc
+  this.velocity = 1.25;
 
   this.playerData = playersData[this.name];
 
@@ -22,7 +23,9 @@ var Player = function(playablePlayerName) {
     position : {
       x: this.playerData.homeLocation.x,
       y: this.playerData.homeLocation.y
-    }
+    },
+    remainingPixelsForMovement : 0,
+    movementInProgress : false
   }
 
   this.playPlayerSound();
@@ -47,7 +50,7 @@ Player.prototype.playPlayerSound = function() {
 Player.prototype.tick = function() {
   var currentTime = (new Date()).getTime();
 
-  if (currentTime - this.state.lastTick > 250) {
+  if (currentTime - this.state.lastTick > 250 || this.state.directionChanged === true) {
     this.state.currentModel = this.models[this.state.direction + '-' + this.state.modelState];
 
     this.state.lastTick = currentTime;
@@ -57,6 +60,32 @@ Player.prototype.tick = function() {
     } else {
       this.state.modelState = 0;
     }
+
+    this.state.directionChanged = false;
+  }
+
+  if (this.state.remainingPixelsForMovement > 0) {
+    var movementAmount = this.velocity > this.state.remainingPixelsForMovement ? 
+                                          this.state.remainingPixelsForMovement : 
+                                          this.velocity;
+
+    switch (this.state.direction) {
+      case 'north':
+        this.state.position.y -= movementAmount;
+        break;
+      case 'south':
+        this.state.position.y += movementAmount;
+        break;
+      case 'west':
+        this.state.position.x -= movementAmount;
+        break;
+      case 'east':
+        this.state.position.x += movementAmount;
+        break;
+    }
+
+    this.state.remainingPixelsForMovement -= movementAmount;
+    this.state.movementInProgress = this.state.remainingPixelsForMovement !== 0;
   }
 };
 
@@ -76,25 +105,17 @@ Player.prototype.render = function(ctx, scale) {
   }
 };
 
-Player.prototype.move = function(direction, blocked) {
-  console.log('MOVE: ', direction);
-  if (this.state.direction === direction && !!blocked) {
-    switch(direction) {
-      case 'north':
-        this.state.position.y -= this.state.currentModel.height;
-        break;
-      case 'south':
-        this.state.position.y += this.state.currentModel.height;
-        break;
-      case 'east':
-        this.state.position.x += this.state.currentModel.width;
-        break;
-      case 'west':
-        this.state.position.x -= this.state.currentModel.width;
-        break;
-    }
-  } else {
+Player.prototype.move = function(direction, canmove) {
+  console.log('MOVE: ', direction, canmove);
+
+  if (this.state.direction !== direction) {
     this.state.direction = direction;
+    this.state.directionChanged = true;
+  }
+
+  if (this.state.movementInProgress === false && canmove === true) {
+    this.state.remainingPixelsForMovement = this.state.currentModel.width;
+    this.state.movementInProgress = true;
   }
 
   console.log(this.state.position.x, this.state.position.y);
